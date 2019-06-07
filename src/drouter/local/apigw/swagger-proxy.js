@@ -141,7 +141,7 @@ fs.readAsJSON(mappingTableLocation,(err,mappingTable) => {
 
         // Initializing the schema
     		let reqSchema = new Schema({},true,[],swagger.definitions);
-    		let resSchema = new Schema({},true,[],swagger.definitions);
+    		// let resSchema = new Schema({},true,[],swagger.definitions);
 
         // Iterating over the paramters of the operation and building the schema of that specific operation
     		operationParameters.forEach(function(definition){
@@ -172,8 +172,10 @@ fs.readAsJSON(mappingTableLocation,(err,mappingTable) => {
     		session.input.readAsJSON((err,json) => {
     			if (err) {
     				session.input.readAsBuffer((err,buf) => {
-    					const formData = qs.parse(buf.toString());
-    					request.formData = formData;
+              if (verb != 'get' | 'head') {
+                const formData = qs.parse(buf.toString());
+      					request.formData = formData;
+              }
     					session.output.write(request);
     				})
     			} else {
