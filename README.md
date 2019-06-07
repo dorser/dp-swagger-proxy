@@ -7,7 +7,9 @@ This means you can simply upload your swaggers to the designated directory and g
 
 # Building
 You can start by building the docker image and run it.
-`git clone https://github.com/dorser/dp-swagger-proxy.git`
-`cd dp-swagger-proxy`
-`docker build -t dorser/apigw:1.0 .`
-`docker start --name apigw -p 15000:15000 -e DATAPOWER_ACCEPT_LICENSE=true dorser/apigw:1.0`
+```
+git clone https://github.com/dorser/dp-swagger-proxy.git
+cd dp-swagger-proxy
+docker build -t dorser/apigw:1.0 .
+docker start --name apigw -p 15000:15000 -e DATAPOWER_ACCEPT_LICENSE=true dorser/apigw:1.0
+```
