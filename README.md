@@ -1,21 +1,13 @@
 # DataPower Swagger Proxy (Swagger Validator for IBM DataPower)
 
 IBM DataPower doesn't support validating REST API calls against a swagger document out-of-the-box (Unless you have IBM API Connect).
-This piece of GatewayScript validates a request against a swagger document dynamically.
+This project exposes REST APIs using swaggers on a sinle Multi Protcol Gateway.
 
-This means you can simply place this GatewayScript in you processing policy and it basically create a "REST API Proxy" that validates incoming requests against the swagger (Including headers, querystring parameters and even path parameters!).
+This means you can simply upload your swaggers to the designated directory and get it exposed and schema validated immediately.
 
-# Implementing
-In your processing policy drag a GatewayScript action and upload the JS file.
-![alt text](https://raw.githubusercontent.com/dorser/dp-swagger-proxy/master/processing_policy.jpeg "MPGW Processing Policy")
-
-Then drag a validation action and set it as described:
-![alt text](https://raw.githubusercontent.com/dorser/dp-swagger-proxy/master/validation_action.jpeg "JSON Validation Action")
-
-Upload the swagger as JSON to your local:/// directory and give it the same name as your mpgw .
-For example, if you MPGW's name is `SwaggerProxyServiceA` upload your swagger to `local:///SwaggerProxyServiceA.json`
-
-# TODO:
-* Add a GatewayScript to validate responses.
-* Add tests
-* Latency testing
+# Building
+You can start by building the docker image and run it.
+`git clone https://github.com/dorser/dp-swagger-proxy.git`
+`cd dp-swagger-proxy`
+`docker build -t dorser/apigw:1.0 .`
+`docker start --name apigw -p 15000:15000 -e DATAPOWER_ACCEPT_LICENSE=true dorser/apigw:1.0`
