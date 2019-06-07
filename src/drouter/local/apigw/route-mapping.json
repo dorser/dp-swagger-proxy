@@ -1,0 +1,16 @@
+{
+  "methods": {
+    "get": {
+      "/health-check/v1/echo": {
+        "schemaLocation": "local:///schemas/health-check.json",
+        "host": "http://127.0.0.1:15001"
+      }
+    },
+    "post": {
+      "/health-check/v1/echo": {
+        "schemaLocation": "local:///schemas/health-check.json",
+        "host": "http://127.0.0.1:15001"
+      }
+    }
+  }
+}

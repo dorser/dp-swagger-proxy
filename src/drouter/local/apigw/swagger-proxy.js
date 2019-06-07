@@ -74,7 +74,7 @@ function findOperationPath(paths,uri){
 		}
 		i++;
 	}
-  console.error(operationPath + ' | ' + cont);
+
   if (possibleMatch && cont) {
     operationPath = possibleMatch
   } else if (cont) {
@@ -102,7 +102,7 @@ function getRequestParams(uri,operationPath){
   return requestParameters;
 }
 
-const mappingTableLocation = 'local:///route-mapping-table.json';
+const mappingTableLocation = 'local:///route-mapping.json';
 
 fs.readAsJSON(mappingTableLocation,(err,mappingTable) => {
   if (err){
@@ -119,7 +119,9 @@ fs.readAsJSON(mappingTableLocation,(err,mappingTable) => {
     }
 
     const swaggerLocation = mappingTable['methods'][verb][route]['schemaLocation'];
-    // const backendUrl = mappingTable['methods'][verb][route][host] + uri;
+    const backendUrl = mappingTable['methods'][verb][route]['host'] + uri;
+
+    sm.setVar('var://service/routing-url',backendUrl);
 
     fs.readAsJSON(swaggerLocation,(err,swagger) => {
     	if (err) {
@@ -134,7 +136,7 @@ fs.readAsJSON(mappingTableLocation,(err,mappingTable) => {
     		const operationPath = findOperationPath(Object.keys(swagger['paths']),uriPath)
 
     		// Fetch the parameters declared for that operation and global parameters
-    		const operationParameters = swagger['paths'][operationPath][verb]['parameters'];
+    		const operationParameters = swagger['paths'][operationPath][verb]['parameters'] || [];
     		const globalParameters = swagger['parameters'];
 
         // Initializing the schema

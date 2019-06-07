@@ -1,0 +1,72 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "x-ibm-name": "health-check",
+    "title": "Health Check",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "$(catalog.host)",
+  "basePath": "/health-check/v1",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {},
+  "paths": {
+    "/echo": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "schema": {
+              "$ref": "#/definitions/echo"
+            }
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "schema": {
+              "$ref": "#/definitions/echo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "echoRequest",
+            "required": false,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/echo"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "echo": {
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        },
+        "echo": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "tags": []
+}
